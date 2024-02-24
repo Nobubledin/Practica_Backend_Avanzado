@@ -7,7 +7,7 @@ const asyncHandler = require('express-async-handler');
 
 
 router.get('/', async (req, res) => {
-    const readmePath = path.join(__dirname, '../README.md');
+    const readmePath = path.join(__dirname, '../Readme.md');
     const readmeContent = await fsPromises.readFile(readmePath, 'utf8');
 
     res.render('index', { readmeContent }); 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Anuncio = require('./models/Anuncio');
+const Anuncio = require('../models/Anuncio');
 
 mongoose.connection.on('error', err => {
     console.log('Error de conexión', err);
