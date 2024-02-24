@@ -1,0 +1,18 @@
+{
+    "anuncios": [
+      {
+        "nombre": "Bicicleta",
+        "venta": true,
+        "precio": 1500,
+        "foto": "bici.jpg",
+        "tags": [ "diario", "motor"]
+      },
+      {
+        "nombre": "iPhone 3GS",
+        "venta": false,
+        "precio": 3000,
+        "foto": "iphone.png",
+        "tags": [ "diario", "móvil"]
+      }
+    ]
+  }
