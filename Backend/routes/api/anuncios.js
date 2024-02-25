@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler');
-const storage = require('../../lib/multerconfig.js');
+const upload = require('../../lib/multerconfig.js');
 
 const Anuncio = mongoose.model('Anuncio');
 const { buildAnuncioFilter } = require('../../lib/utils');
@@ -28,8 +28,10 @@ router.get('/tags', asyncHandler(async function (req, res) {
     res.json({ result: distinctTags });
 }));
 
-router.post('/', storage.single('file'), asyncHandler(async (req, res) => {
+router.post('/', upload.single('foto'), asyncHandler(async (req, res) => {
     const anuncioData = req.body;
+
+    console.log(req.file);
     const anuncio = new Anuncio(anuncioData);
     const anuncioGuardado = await anuncio.save();
 
