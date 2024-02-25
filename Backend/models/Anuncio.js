@@ -56,6 +56,19 @@ anuncioschema.statics.list = async function (filters, startRow, numRows, sortFie
   return result;
 };
 
+anuncioschema.methods.Foto = async function({path, originalname: originalname}) {
+  if(!originalname) return
+
+
+const imagePublicPath = path.join(__dirname, '../public/images/anuncios', originalname)
+await fsPromises.copy(path, imagePublicPath)
+
+this.Foto = originalname;
+
+thumbnailRequest.send({type: 'createThumbnail', image: imagePublicPath})
+
+}
+
 const Anuncio = mongoose.model('Anuncio', anuncioschema);
 
 module.exports = Anuncio;
