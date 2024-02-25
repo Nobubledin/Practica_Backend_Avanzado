@@ -1,35 +1,51 @@
 
-## Despliegue
+# Backend Avanzado
 
-Para desplegar este proyecto
+Práctica de Backend
+
+# Welcome, press down below your preferred language
+
+[British English](./Readme_en.md)
+[American English](./Readme_en-US.md)
 
 
-### Instalar dependencias
+
+## Deployment
+
+To deploy this project
+
+
+### Install dependencies
 
 ```bash
   npm install
 ```
 
-### Configurar
+### Configure
 
-Revisa el archivo lib/connectMongoose.js para la configuración de la base de datos
+Review the file lib/connectMongoose.js for the database config
 
-#### Iniciar la bas de datos
+#### Init database
 
 ```
 npm run initDB
 ```
 
-## Iniciar
+## Start
 
-### Iniciar una instancia
+### Start a single instance
 
 ```
 npm start
 ```
 
-### Iniciar en modo desarrollador
+### Start in development mode
 
 ```
 npm run dev
 ```
+
+## API Info
+
+### Path
+#### The API can be used with the path routes/API

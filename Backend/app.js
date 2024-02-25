@@ -9,6 +9,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const i18n = require('./lib/i18nConfigure');
 const jwtAuth = require('./lib/jwtAuth');
+const markdownIt = require('markdown-it')();
+const fs = require('fs');
 
 require('./models');
 
@@ -26,11 +28,30 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 app.use(i18n.init);
+
+app.use('/README', (req, res, next) => {
+  const language = req.query.lang || 'es';
+
+  req.readmePath = path.join(__dirname, `README_${language}.md`);
+  next();
+});
+
+app.get('/README', (req, res, next) => {
+  fs.readFile(req.readmePath, 'utf8', (err, readmeContent) => {
+    if(err) {
+      next(createError(404, 'README not found'));
+    } else {
+      const renderMarkdown = markdownIt.render(readmeContent);
+
+      res.send(renderMarkdown);
+    }
+  })
+});
+
+
+
 const indexRouter = require('./routes/index');
 app.use('/anuncios', require('./routes/anuncios'))
 app.use('/api/authenticate', require('./routes/api/authenticate'));
