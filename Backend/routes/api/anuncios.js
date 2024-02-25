@@ -33,12 +33,23 @@ const createRootDestinationFolder = async () => {
 createRootDestinationFolder();
 
 router.get('/', async (req, res, next) => {
-    // ... (unchanged code for handling GET request)
+    const start = parseInt(req.query.start) || 0;
+    const limit = parseInt(req.query.limit) || 3000;
+    const order = req.query.sort || '_id';
+    const total = req.query.total === 'true';
+
+    const filters = buildAnuncioFilter(req);
+
+    const anuncios = await Anuncio.list(filters, start, limit, order, total);
+
+    res.json({ result: anuncios });
 });
 
 router.get('/tags', asyncHandler(async function (req, res) {
-    // ... (unchanged code for handling GET request for tags)
-}));
+    const distinctTags = await Anuncio.distinct('tags');
+    res.json({ result: distinctTags});
+}
+    )); 
 
 router.post('/', upload.single('foto'), asyncHandler(async (req, res) => {
     try {
