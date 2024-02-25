@@ -47,57 +47,6 @@ if(!fs.existsSync(destinationFolderPath)) {
 const uploader = multer({dest: '/uploads'});
 
 
-app.post('/uploads', uploader.single('image'), async(req, res) => {
-  console.log('linea 29 correcta')
-  console.log('Upload route hit!');
-  try {
-    const {file} = req;
-    if(!file) {
-      return res.status(400).json({success: false, error: 'No file uploaded'});
-    }
-
-    
-    const newFolder = '/images';
-    const newFolderPath = path.join(__dirname, newFolder);
-    
-    
-    if(!fs.existsSync(newFolderPath)) {
-      fs.mkdirSync(newFolderPath, {recursive: true});
-      console.log(`Created new folder: ${newFolderPath}`);
-    }
-
-    const uniqueFilename = generateuniqueFileName(file.originalname);
-    const newFilePath = path.join(destinationFolderPath, uniqueFilename);
-
-    console.log('Before copyFile');
-    await fs.promises.copyFile(file.path, newFilePath);
-    console.log('After copyFile');
-
-    const thumbnailCreatorResponse = await thumbnailCreatorRequester.send({
-      type: 'createThumbnail',
-      filePath: newFilePath,
-    });
-
-    
-    console.log('Thumbnail creator response:', thumbnailCreatorResponse);
-
-
-
-    console.log('Before Unlink');
-    await fs.promises.unlink(file.path);
-    console.log('After unlink');
-    console.log(`Image moved to ${newFilePath}`);
-
-
-
-    return res.json({success: true, message: 'Image moved succesfully'});;
-  } catch(error) {
-    console.error('Error processing image upload:', error);
-    return res.status(500).json({success: false, error:'Internal Server Error'});
-  }
-});
-
-
 app.use('/README', (req, res, next) => {
   const language = req.query.lang || 'es';
 
