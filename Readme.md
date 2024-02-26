@@ -27,15 +27,21 @@ npm run initDB
 ```
 npm start
 ```
+### In another console instance 
+```
+node thumbnail thumbnailcreator.js
+```
+
+
 
 ### Start in development mode
 
 ```
 npm run dev
 ```
-### In another console instance 
+### In another console instance
 ```
-node thumbnail creator.js
+node thumbnail thumbnailcreator.js
 ```
 ## API Info
 
