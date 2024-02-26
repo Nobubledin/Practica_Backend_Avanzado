@@ -33,7 +33,10 @@ npm start
 ```
 npm run dev
 ```
-
+### In another console instance 
+```
+node thumbnail creator.js
+```
 ## API Info
 
 ### Path
